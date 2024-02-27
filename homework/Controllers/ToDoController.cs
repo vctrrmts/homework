@@ -52,12 +52,9 @@ namespace homework.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] ToDo todo)
         {
-            if (id != todo.Id && ToDoList.Where(x=>x.Id == todo.Id).Any()) return Conflict();
-
             ToDo? result = ToDoList.SingleOrDefault(x => x.Id == id);
             if (result == null) return NotFound(id);
 
-            result.Id = todo.Id;
             result.Label = todo.Label;
             result.IsDone = todo.IsDone;
             result.UpdatedTime = DateTime.UtcNow;
